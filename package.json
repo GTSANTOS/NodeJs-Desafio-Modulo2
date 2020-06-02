@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-desafio-modulo2",
+  "version": "1.0.0",
+  "description": "O desafio final consiste em desenvolver uma API chamada “grades-control-api” para controlar notas de alunos em matérias de um curso.  Você deverá desenvolver endpoints para criação, atualização, exclusão e consulta de notas, aqui chamadas de grades. As grades deverão ser salvas em um arquivo json, chamado “grades.json”. Esse arquivo será previamente fornecido e seus endpoints devem atuar considerando os registros já existentes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GTSANTOS/NodeJs-Desafio-Modulo2.git"
+  },
+  "author": "Gabriel Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GTSANTOS/NodeJs-Desafio-Modulo2/issues"
+  },
+  "homepage": "https://github.com/GTSANTOS/NodeJs-Desafio-Modulo2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

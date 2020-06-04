@@ -90,4 +90,63 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+
+//Exercicio 5
+//Crie um endpoint para consultar a nota total de um aluno em uma disciplina. O endpoint deverá receber como parâmetro o student e o subject, e realizar a soma de todas as notas de atividades correspondentes àquele subject, para aquele student. O endpoint deverá retornar a soma da propriedade value dos registros encontrados.
+router.get("/consultar/nota", async (req, res) => {
+    let dados = req.body;
+    try {
+        let data = await readFile(global.fileName, "utf-8");
+        let json = JSON.parse(data);
+        const grades = json.grades.filter(x => x.student == dados.student && x.subject == dados.subject);    
+        const somaValores = grades.reduce(function (sum, dado) {
+            return sum + dado.value;
+        }, 0);
+        res.send(`Soma é igual:  ${somaValores}`);
+        logger.info(`GET /grades Consultar Notas - Soma é igual:  ${somaValores}`)
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+        logger.error(`GET /grades Consultar Notas - ${ error.message }`)
+    }
+});
+
+//Exercicio 6
+//Crie um endpoint para consultar a média das grades de determinado subject e type. O endpoint deverá receber como parâmetro um subject e um type, e retornar a média. A média é calculada somando o registro value de todos os registros que possuem o subject e type informados, dividindo pelo total de registros que possuem este mesmo subject e type.
+router.get("/consultar/media", async (req, res) => {
+    let dados = req.body;
+    try {
+        let data = await readFile(global.fileName, "utf-8");
+        let json = JSON.parse(data);
+        const grades = json.grades.filter(x => x.student == dados.student && x.type == dados.type);    
+        const mediaValores = grades.reduce(function (sum, dado) {
+            return sum + dado.value;
+        }, 0) / grades.length;
+
+        res.send(`Média é igual:  ${mediaValores}`);
+        logger.info(`GET /grades Consultar Média - Média é igual:  ${mediaValores}`)
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+        logger.error(`GET /grades Consultar Média - ${ error.message }`)
+    }
+});
+
+//Exercicio 7
+// Crie um endpoint para retornar as três melhores grades de acordo com determinado subject e type. O endpoint deve receber como parâmetro um subject e um type, e retornar um array com os três registros de maior value daquele subject e type. A ordem deve ser do maior para o menor
+router.get("/consultar/registros", async (req, res) => {
+    let dados = req.body;
+    try {
+        let data = await readFile(global.fileName, "utf-8");
+        let json = JSON.parse(data);
+        const grades = json.grades.filter(x => x.student == dados.student && x.type == dados.type);    
+        grades.sort(function (a, b) {  return b.value - a.value  });
+        const retorno = grades.slice(0, 3);
+        res.send(retorno);
+        logger.info(`GET /grades Consultar 3 maiores valores de registros -   ${retorno}`)
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+        logger.error(`GET /grades Consultar 3 maiores valores de registros - ${ error.message }`)
+    }
+});
+
+
 export default router; 

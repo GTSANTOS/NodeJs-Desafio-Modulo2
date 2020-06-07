@@ -117,7 +117,7 @@ router.get("/consultar/media", async (req, res) => {
     try {
         let data = await readFile(global.fileName, "utf-8");
         let json = JSON.parse(data);
-        const grades = json.grades.filter(x => x.student == dados.student && x.type == dados.type);    
+        const grades = json.grades.filter(x => x.subject == dados.subject && x.type == dados.type);    
         const mediaValores = grades.reduce(function (sum, dado) {
             return sum + dado.value;
         }, 0) / grades.length;
@@ -137,7 +137,7 @@ router.get("/consultar/registros", async (req, res) => {
     try {
         let data = await readFile(global.fileName, "utf-8");
         let json = JSON.parse(data);
-        const grades = json.grades.filter(x => x.student == dados.student && x.type == dados.type);    
+        const grades = json.grades.filter(x => x.subject == dados.subject && x.type == dados.type);    
         grades.sort(function (a, b) {  return b.value - a.value  });
         const retorno = grades.slice(0, 3);
         res.send(retorno);

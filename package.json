@@ -18,7 +18,7 @@
   "homepage": "https://github.com/GTSANTOS/NodeJs-Desafio-Modulo2#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "winston": "^3.2.1"
   },
   "type": "module"
